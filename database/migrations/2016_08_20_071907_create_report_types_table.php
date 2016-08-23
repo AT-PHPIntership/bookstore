@@ -15,8 +15,6 @@ class CreateReportTypesTable extends Migration
         Schema::create('report_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type', 256);
-            $table->integer('report_id')->unsigned();
-            $table->foreign('report_id')->references('id')->on('reports');
             $table->timestamps();
         });
     }
