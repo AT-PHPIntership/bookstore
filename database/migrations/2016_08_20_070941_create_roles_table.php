@@ -16,7 +16,6 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->string('role', 45);
             $table->string('description', 256);
-            $table->integer('users_roles_id')->unsigned();
             $table->timestamps();
         });
     }

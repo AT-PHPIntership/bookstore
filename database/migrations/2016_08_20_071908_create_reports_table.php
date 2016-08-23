@@ -19,6 +19,8 @@ class CreateReportsTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles');
             $table->integer('reporter_id')->unsigned();
             $table->foreign('reporter_id')->references('id')->on('users');
+            $table->integer('report_type_id')->unsigned();
+            $table->foreign('report_type_id')->references('id')->on('report_types');
             $table->timestamps();
         });
     }
