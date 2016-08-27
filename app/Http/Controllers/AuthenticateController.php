@@ -21,18 +21,6 @@ class AuthenticateController extends Controller
     }
     
     /**
-     * Display a listing of the user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // Retrieve all the users in the database and return them
-        $users = User::all();
-        return $users;
-    }
-    
-    /**
      * Return a JWT
      *
      * @param \Illuminate\Http\BillRequest $request hold data from request
