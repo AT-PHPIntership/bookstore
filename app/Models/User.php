@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Profile;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +14,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'token', 'account', 'password', 'isActive'
+        'token', 'email', 'password', 'isActive'
     ];
     
     public $timestamps = false;
