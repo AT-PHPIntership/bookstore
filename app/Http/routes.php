@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'api'], function () {
+Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
-    Route::get('/articles', function () {
-        return response()->json(App\Models\Article::all());
+    Route::group(['middleware' => 'auth.token'], function () {
+        Route::get('/articles', function () {
+            return response()->json(App\Models\Article::all());
+        });
     });
 });
