@@ -100,7 +100,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Function delete
      *
-     * @param int $id id
+     * @param int $id id resource
      *
      * @return mixed
      */
@@ -139,12 +139,25 @@ abstract class Repository implements RepositoryInterface
     }
     
     /**
+     * Load relations
+     *
+     * @param array|string $relations decrible relations
+     *
+     * @return $this
+     */
+    public function with($relations)
+    {
+        $this->model = $this->model->with($relations);
+        return $this;
+    }
+    
+    /**
      * Function makeModel
      *
      * @return \Illuminate\Database\Eloquent\Builder
      * @throws RepositoryException
      */
-    public function makeModel()
+    private function makeModel()
     {
         $model = $this->app->make($this->model());
         if (!$model instanceof Model) {
