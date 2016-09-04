@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Repositories\ArticleRepository as Article;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -31,11 +32,13 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\ArticleRequest $request hold data from request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->article->with('city')->all());
+        return response()->json($this->article->skip($request->skippedNumber)->take($request->takenNumber)->get());
     }
 
     /**
