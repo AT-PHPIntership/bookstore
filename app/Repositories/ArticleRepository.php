@@ -16,4 +16,28 @@ class ArticleRepository extends Repository
     {
         return 'App\Models\Article';
     }
+    
+    /**
+     * Skip rows
+     *
+     * @param int $rows number rows are skipped
+     *
+     * @return $this
+     */
+    public function skip($rows = 15)
+    {
+        return $this->model->skip($rows);
+    }
+    
+    /**
+     * Take rows
+     *
+     * @param int $rows number rows are taken
+     *
+     * @return $this
+     */
+    public function take($rows = 15)
+    {
+        return $this->model->take($rows);
+    }
 }
