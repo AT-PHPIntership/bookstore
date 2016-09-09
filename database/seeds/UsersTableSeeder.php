@@ -2,10 +2,29 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\Models\User;
+use App\Repositories\UserRepository as User;
 
 class UsersTableSeeder extends Seeder
 {
+    /**
+     * User
+     *
+     * @var user
+     */
+    private $user;
+    
+    /**
+     * Create a new UserRepository instance.
+     *
+     * @param UserRepository $user user
+     *
+     * @return void
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+  
     /**
      * Run the database seeds.
      *
@@ -16,7 +35,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i=0; $i < 50; $i++) {
-            User::create([
+            $this->user->create([
                 'email' => $faker->email,
                 'password' => bcrypt('12345678'),
                 'isActive' => $faker->boolean(50),

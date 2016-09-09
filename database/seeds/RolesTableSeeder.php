@@ -2,10 +2,30 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\Models\Role;
+use App\Repositories\RoleRepository as Role;
 
 class RolesTableSeeder extends Seeder
 {
+  
+    /**
+     * Role
+     *
+     * @var role
+     */
+    private $role;
+    
+    /**
+     * Create a new RoleRepository   instance.
+     *
+     * @param RoleRepository $role role
+     *
+     * @return void
+     */
+    public function __construct(Role $role)
+    {
+        $this->role = $role;
+    }
+    
     /**
      * Run the database seeds.
      *
@@ -17,7 +37,7 @@ class RolesTableSeeder extends Seeder
         
         $roles = array("RootAdmin", "Admin", "User", "Guest");
         for ($i=0; $i < count($roles); $i++) {
-            Role::create([
+            $this->role->create([
                 'role' => $roles[$i],
                 'description' => $faker->text,
                 'created_at' => $faker->dateTimeThisYear($max = 'now')

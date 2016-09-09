@@ -2,10 +2,29 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\Models\City;
+use App\Repositories\CityRepository as City;
 
 class CitiesTableSeeder extends Seeder
 {
+    /**
+     * City
+     *
+     * @var city
+     */
+    private $city;
+    
+    /**
+     * Create a new CityRepository instance.
+     *
+     * @param CityRepository $city city
+     *
+     * @return void
+     */
+    public function __construct(City $city)
+    {
+        $this->city = $city;
+    }
+  
     /**
      * Run the database seeds.
      *
@@ -16,7 +35,7 @@ class CitiesTableSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i=0; $i < 54; $i++) {
-            City::create([
+            $this->city->create([
                 'name' => $faker->city,
                 'created_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
