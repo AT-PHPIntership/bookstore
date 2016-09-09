@@ -23,7 +23,7 @@ class Article extends Model
      *
      * @return Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function articles()
+    public function images()
     {
         return $this->hasMany('App\Models\Image');
     }
@@ -39,13 +39,13 @@ class Article extends Model
     }
     
     /**
-     * Article belongs to a category.
+     * Article belongs to a categoryDetail.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function categoryDetail()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\CategoryDetail');
     }
     
     /**
