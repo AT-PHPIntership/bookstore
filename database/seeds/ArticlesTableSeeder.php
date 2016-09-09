@@ -3,18 +3,18 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\Repositories\ArticleRepository as Article;
-use App\Repositories\CategoryRepository as Category;
+use App\Repositories\CategoryDetailRepository as CategoryDetail;
 use App\Repositories\CityRepository as City;
 use App\Repositories\UserRepository as User;
 
 class ArticlesTableSeeder extends Seeder
 {
     /**
-     * Category
+     * CategoryDetail
      *
-     * @var category
+     * @var categoryDetail
      */
-    private $category;
+    private $categoryDetail;
     
     /**
      * City
@@ -38,21 +38,21 @@ class ArticlesTableSeeder extends Seeder
     private $user;
     
     /**
-     * Create a new CategoryRepository instance.
-     * Create a new ArticleRepository  instance.
-     * Create a new CityRepository     instance.
-     * Create a new UserRepository     instance.
+     * Create a new CategoryDetailRepository instance.
+     * Create a new ArticleRepository        instance.
+     * Create a new CityRepository           instance.
+     * Create a new UserRepository           instance.
      *
-     * @param CategoryRepository $category category
-     * @param ArticleRepository  $article  article
-     * @param CityRepository     $city     city
-     * @param UserRepository     $user     user
+     * @param CategoryDetailRepository $categoryDetail categoryDetail
+     * @param ArticleRepository        $article        article
+     * @param CityRepository           $city           city
+     * @param UserRepository           $user           user
      *
      * @return void
      */
-    public function __construct(Category $category, Article $article, City $city, User $user)
+    public function __construct(CategoryDetail $categoryDetail, Article $article, City $city, User $user)
     {
-        $this->category = $category;
+        $this->categoryDetail = $categoryDetail;
         $this->article = $article;
         $this->city = $city;
         $this->user = $user;
@@ -68,7 +68,7 @@ class ArticlesTableSeeder extends Seeder
         $faker = Faker::create();
         $states = array("Active", "Waiting", "Hidden", "Rejected");
         $types = array("Buy", "Sell");
-        $categories = $this->category->all()->lists('id');
+        $categorie_details = $this->categoryDetail->all()->lists('id');
         $cities = $this->city->all()->lists('id');
         $users = $this->user->all()->lists('id');
         for ($i=0; $i < 50; $i++) {
@@ -80,7 +80,7 @@ class ArticlesTableSeeder extends Seeder
                 'type' => $types[rand(0, 1)],
                 'price' => rand(1, 50) * 10,
                 'slug' => str_slug($title),
-                'category_id' => $faker->randomElement($categories->toArray()),
+                'category_detail_id' => $faker->randomElement($categorie_details->toArray()),
                 'city_id' => $faker->randomElement($cities->toArray()),
                 'user_id' => $faker->randomElement($users->toArray()),
                 'created_at' => $faker->dateTimeThisYear($max = 'now')

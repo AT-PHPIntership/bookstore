@@ -20,8 +20,8 @@ class CreateArticlesTable extends Migration
             $table->string('type', 10);
             $table->integer('price');
             $table->string('slug', 256);
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('category_detail_id')->unsigned();
+            $table->foreign('category_detail_id')->references('id')->on('category_details');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('user_id')->unsigned();
