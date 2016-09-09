@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class CategoryDetail extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,18 +12,18 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug'
+        'name', 'slug','category_id'
     ];
     
     public $timestamps = false;
     
     /**
-     * Article has articles
+     * CategoryDetail belongs to a category.
      *
-     * @return Illuminate\Database\Eloquent\Relations\hasMany
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function articles()
+    public function category()
     {
-        return $this->hasMany('App\Models\Article');
+        return $this->belongsTo('App\Models\Category');
     }
 }
