@@ -35,6 +35,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json($this->category->all());
+        return response()->json($this->category->with('categoryDetails')->all());
     }
 }

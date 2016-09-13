@@ -18,12 +18,12 @@ class Category extends Model
     public $timestamps = false;
     
     /**
-     * Article has articles
+     * Category has categoryDetails
      *
      * @return Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function articles()
+    public function categoryDetails()
     {
-        return $this->hasMany('App\Models\Article');
+        return $this->hasMany('App\Models\CategoryDetail');
     }
 }
