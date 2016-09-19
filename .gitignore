@@ -6,3 +6,4 @@ Homestead.json
 .env
 composer.json
 composer.lock
+/public/bower_resources

@@ -1,5 +1,7 @@
 <?php
 return [
+    '200_OK' => 200,
+    '422_UNPROCESSABLE_ENTITY' => 422,
     '400_FORBIDDEN' => 400,
     '500_INTERNAL_SERVER_ERROR' => 500,
     'INVALID_CREDENTIAL' => 'invalid credentials',

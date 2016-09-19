@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::resource('city', 'CityController');
     Route::resource('article', 'ArticleController');
     Route::resource('category', 'CategoryController');
     Route::group(['middleware' => 'auth.token'], function () {

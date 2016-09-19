@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title', 256);
             $table->text('description');
-            $table->string('state', 45);
+            $table->string('state', 45)->default('hidden');
             $table->string('type', 10);
             $table->integer('price');
             $table->string('slug', 256);

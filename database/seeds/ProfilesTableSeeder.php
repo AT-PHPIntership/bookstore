@@ -50,7 +50,7 @@ class ProfilesTableSeeder extends Seeder
                 'name' => $faker->name,
                 'birthday' => $faker->dateTimeBetween('-40 years', '-18 years')->format('d/m/Y'),
                 'address' => $faker->address,
-                'phoneNumber' => $faker->phoneNumber,
+                'phone' => $faker->phoneNumber,
                 'gender' => $faker->boolean(33),
                 'user_id' => $users[$i],
                 'created_at' => $faker->dateTimeThisYear($max = 'now')
