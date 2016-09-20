@@ -54,7 +54,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json($this->article->skip($request->skippedNumber)->take($request->takenNumber)->get());
+        return response()->json($this->article->with('images')->skip($request->skippedNumber)->take($request->takenNumber)->get());
     }
 
     /**
