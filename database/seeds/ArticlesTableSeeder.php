@@ -66,8 +66,8 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $states = array("Active", "Waiting", "Hidden", "Rejected");
-        $types = array("Buy", "Sell");
+        $states = array("active", "waiting", "hidden", "rejected");
+        $types = array("buy", "sell");
         $categorie_details = $this->categoryDetail->all()->lists('id');
         $cities = $this->city->all()->lists('id');
         $users = $this->user->all()->lists('id');
