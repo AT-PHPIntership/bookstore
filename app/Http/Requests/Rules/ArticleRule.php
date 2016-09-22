@@ -19,7 +19,7 @@ class ArticleRule
             'title' => 'required|max:255',
             'description' => 'required|max:2048',
             'type' => 'required|max:50',
-            'price' => 'required|numeric',
+            'price' => 'numeric',
             'category_detail_id' => 'required|numeric|exists:category_details,id',
             'city_id' => 'required|numeric|exists:cities,id',
             'files.*' => 'required|image|max:5120',
