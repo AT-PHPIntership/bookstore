@@ -16,7 +16,7 @@ class Article extends Model
          'city_id', 'user_id'
     ];
     
-    public $timestamps = false;
+    public $timestamps = true;
     
     /**
      * Article has images

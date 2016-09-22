@@ -54,7 +54,13 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json($this->article->with('images')->skip($request->skippedNumber)->take($request->takenNumber)->get());
+        $articles = $this->article->with('images')->skip($request->skippedNumber)->take($request->takenNumber)->get();
+        if ($articles) {
+            return response()->json($articles, \Config::get('http_response_code.200_OK'));
+        }
+        return response()->json([
+            'success' => false,
+        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
     }
 
     /**
@@ -66,7 +72,15 @@ class ArticleController extends Controller
      */
     public function show($slug)
     {
-        return response()->json($this->article->with('user')->findBy('slug', $slug)->first());
+        $article = $this->article->with('user')->with('images')
+                  ->findBy('slug', $slug)
+                  ->first();
+        if ($article) {
+            return response()->json($article, \Config::get('http_response_code.200_OK'));
+        }
+        return response()->json([
+            'success' => false
+        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
     }
     
     

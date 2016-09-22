@@ -21,6 +21,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
     Route::resource('city', 'CityController');
     Route::resource('article', 'ArticleController');
     Route::resource('category', 'CategoryController');
+    Route::resource('categoryDetail', 'CategoryDetailController');
     Route::group(['middleware' => 'auth.token'], function () {
     });
 });
