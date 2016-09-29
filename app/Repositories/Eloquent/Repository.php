@@ -49,7 +49,9 @@ abstract class Repository implements RepositoryInterface
     /**
      * Function get all
      *
-     * @param array $columns columns
+     * @param array  $columns columns
+     * @param string $field   field
+     * @param string $sort    sort
      *
      * @return mixed
      */

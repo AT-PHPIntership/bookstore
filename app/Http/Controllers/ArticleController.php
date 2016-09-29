@@ -52,7 +52,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
       
         $articles = $this->article->with('images')->with('city')->all();
@@ -103,7 +103,7 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $validator = ArticleRule::creatingValidator($request->all());
         if ($validator->passes()) {
             $request['slug'] = str_slug($request->title.time());
