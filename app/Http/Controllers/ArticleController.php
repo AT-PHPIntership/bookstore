@@ -54,13 +54,14 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = $this->article->with('images')->skip($request->skippedNumber)->take($request->takenNumber)->get();
+      
+        $articles = $this->article->with('images')->with('city')->all();
         if ($articles) {
-            return response()->json($articles, \Config::get('http_response_code.200_OK'));
+            return response()->json(['articles' => $articles], \Config::get('http_response_code.200_OK'));
         }
         return response()->json([
-            'success' => false,
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+                'success' => false,
+            ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
     }
 
     /**
@@ -79,8 +80,8 @@ class ArticleController extends Controller
             return response()->json($article, \Config::get('http_response_code.200_OK'));
         }
         return response()->json([
-            'success' => false
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+            ['meta' => ['message' => 'post not found']],
+        ], \Config::get('http_response_code.404_NOT_FOUND'));
     }
     
     
@@ -102,7 +103,7 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $validator = ArticleRule::creatingValidator($request->all());
         if ($validator->passes()) {
             $request['slug'] = str_slug($request->title.time());
@@ -125,15 +126,12 @@ class ArticleController extends Controller
                 )->save(\Config::get('common.IMAGE_PATH').'/'.$fileName);
                 $this->image->create(['name' => $fileName, 'article_id' => $newArticle->id]);
             });
-            return response()->json([
-                'success' => true,
-                'message' => trans('common.success')
-            ], \Config::get('http_response_code.200_OK'));
+            return response()->json(\Config::get('http_response_code.201_CREATED'));
         }
         $errors = json_decode($validator->errors());
-        return response()->json([
-            'success' => false,
-            'message' => $errors
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+        return response()->json(
+            ['meta' => ['message' => $errors]],
+            \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY')
+        );
     }
 }

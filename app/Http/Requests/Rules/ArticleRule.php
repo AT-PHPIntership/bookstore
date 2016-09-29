@@ -22,6 +22,7 @@ class ArticleRule
             'price' => 'numeric',
             'category_detail_id' => 'required|numeric|exists:category_details,id',
             'city_id' => 'required|numeric|exists:cities,id',
+            'files' => 'required',
             'files.*' => 'required|image|max:5120',
         ];
         return Validator::make($data, $rules);
