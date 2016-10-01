@@ -48,8 +48,6 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\ArticleRequest $request hold data from request
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -77,7 +75,7 @@ class ArticleController extends Controller
                   ->findBy('slug', $slug)
                   ->first();
         if ($article) {
-            return response()->json($article, \Config::get('http_response_code.200_OK'));
+            return response()->json(['article' => $article], \Config::get('http_response_code.200_OK'));
         }
         return response()->json([
             ['meta' => ['message' => 'post not found']],
@@ -116,6 +114,9 @@ class ArticleController extends Controller
                 'slug',
                 'category_detail_id',
                 'city_id',
+                'address',
+                'lat',
+                'lng',
                 'user_id'
             ));
             collect(collect($request->files)->first())->each(function ($item, $key) use ($request, $newArticle) {
