@@ -18,7 +18,10 @@ class CreateArticlesTable extends Migration
             $table->text('description');
             $table->string('state', 45)->default('hidden');
             $table->string('type', 10);
-            $table->integer('price');
+            $table->string('address');
+            $table->double('lat', 10, 6)->nullable();
+            $table->double('lng', 10, 6)->nullable();
+            $table->integer('price')->nullable();
             $table->string('slug', 256);
             $table->integer('category_detail_id')->unsigned();
             $table->foreign('category_detail_id')->references('id')->on('category_details');

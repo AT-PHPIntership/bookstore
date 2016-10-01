@@ -4,6 +4,8 @@ return [
     '422_UNPROCESSABLE_ENTITY' => 422,
     '400_FORBIDDEN' => 400,
     '500_INTERNAL_SERVER_ERROR' => 500,
+    '404_NOT_FOUND' => 404,
+    '201_CREATED' => 201,
     'INVALID_CREDENTIAL' => 'invalid credentials',
     'COULD_NOT_CREATE_TOKEN' => 'could not create token',
     'INVALID_TOKEN' => 'Token is Invalid',

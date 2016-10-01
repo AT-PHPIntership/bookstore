@@ -49,13 +49,15 @@ abstract class Repository implements RepositoryInterface
     /**
      * Function get all
      *
-     * @param array $columns columns
+     * @param array  $columns columns
+     * @param string $field   field
+     * @param string $sort    sort
      *
      * @return mixed
      */
-    public function all($columns = array('*'))
+    public function all($columns = array('*'), $field = 'id', $sort = 'desc')
     {
-        return $this->model->get($columns);
+        return $this->model->select($columns)->orderBy($field, $sort)->get();
     }
     
     /**

@@ -48,19 +48,18 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\ArticleRequest $request hold data from request
-     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $articles = $this->article->with('images')->skip($request->skippedNumber)->take($request->takenNumber)->get();
+      
+        $articles = $this->article->with('images')->with('city')->all();
         if ($articles) {
-            return response()->json($articles, \Config::get('http_response_code.200_OK'));
+            return response()->json(['articles' => $articles], \Config::get('http_response_code.200_OK'));
         }
         return response()->json([
-            'success' => false,
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+                'success' => false,
+            ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
     }
 
     /**
@@ -76,11 +75,11 @@ class ArticleController extends Controller
                   ->findBy('slug', $slug)
                   ->first();
         if ($article) {
-            return response()->json($article, \Config::get('http_response_code.200_OK'));
+            return response()->json(['article' => $article], \Config::get('http_response_code.200_OK'));
         }
         return response()->json([
-            'success' => false
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+            ['meta' => ['message' => 'post not found']],
+        ], \Config::get('http_response_code.404_NOT_FOUND'));
     }
     
     
@@ -115,6 +114,9 @@ class ArticleController extends Controller
                 'slug',
                 'category_detail_id',
                 'city_id',
+                'address',
+                'lat',
+                'lng',
                 'user_id'
             ));
             collect(collect($request->files)->first())->each(function ($item, $key) use ($request, $newArticle) {
@@ -125,15 +127,12 @@ class ArticleController extends Controller
                 )->save(\Config::get('common.IMAGE_PATH').'/'.$fileName);
                 $this->image->create(['name' => $fileName, 'article_id' => $newArticle->id]);
             });
-            return response()->json([
-                'success' => true,
-                'message' => trans('common.success')
-            ], \Config::get('http_response_code.200_OK'));
+            return response()->json(\Config::get('http_response_code.201_CREATED'));
         }
         $errors = json_decode($validator->errors());
-        return response()->json([
-            'success' => false,
-            'message' => $errors
-        ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
+        return response()->json(
+            ['meta' => ['message' => $errors]],
+            \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY')
+        );
     }
 }
