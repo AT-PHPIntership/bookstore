@@ -52,7 +52,6 @@ class ArticleController extends Controller
      */
     public function index()
     {
-      
         $articles = $this->article->with('images')->with('city')->all();
         if ($articles) {
             return response()->json(['articles' => $articles], \Config::get('http_response_code.200_OK'));
@@ -61,7 +60,7 @@ class ArticleController extends Controller
                 'success' => false,
             ], \Config::get('http_response_code.422_UNPROCESSABLE_ENTITY'));
     }
-
+    
     /**
      * Display the specified resource.
      *
